@@ -8,7 +8,7 @@ const dbConfig = defineConfig({
       client: 'mysql2',
       connection: {
         host: env.get('MYSQL_HOST', 'db'),
-        port: env.get('MYSQL_PORT', 3306),
+        port: Number.parseInt(env.get('MYSQL_PORT', '3306'), 10),
         user: env.get('MYSQL_USER', 'ticket_user'),
         password: env.get('MYSQL_PASSWORD', 'ticket_password'),
         database: env.get('MYSQL_DB_NAME', 'ticket_db'),
@@ -17,8 +17,6 @@ const dbConfig = defineConfig({
         naturalSort: true,
         paths: ['database/migrations'],
       },
-      healthCheck: false,
-      debug: false,
     },
   },
 })
