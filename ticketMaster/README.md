@@ -2,18 +2,87 @@
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.0.
 
-## Docker Setup
+## Docker Commands
 
-To run the application using Docker:
+### Starting the Application
 
 ```bash
-# Build and start the containers
-docker-compose up --build
+# Build and start containers
+docker-compose up -d
 
-# Access the application:
-# SSR version: http://localhost:4000
-# Development version: http://localhost:4200
+# Build containers without cache
+docker-compose build --no-cache
+
+# Start containers with logs
+docker-compose up
+
+# Build and start the containers (as mentioned in initial setup)
+docker-compose up --build
 ```
+
+### Container Management
+
+```bash
+# Stop all containers
+docker-compose down
+
+# View running containers
+docker-compose ps
+
+# View container logs
+docker-compose logs
+
+# View real-time logs
+docker-compose logs -f
+```
+
+### Cleanup Commands
+
+```bash
+# Remove stopped containers
+docker container prune
+
+# Remove unused images
+docker image prune
+
+# Remove unused volumes
+docker volume prune
+
+# Remove all unused containers, images, volumes, networks
+docker system prune -a
+```
+
+### Useful Commands
+
+```bash
+# Enter a container
+docker-compose exec [service-name] bash
+
+# Restart specific service
+docker-compose restart [service-name]
+
+# View resource usage
+docker stats
+```
+
+### Troubleshooting
+
+```bash
+# Force rebuild containers
+docker-compose up -d --force-recreate
+
+# Stop and remove all containers, volumes, and images
+docker-compose down -v --rmi all
+
+# Clean Docker cache
+docker builder prune
+```
+
+### Important Notes
+
+- Ensure Docker and Docker Compose are installed on your machine
+- Run containers from the directory containing `docker-compose.yml`
+- Rebuild images with `docker-compose build` after Dockerfile modifications
 
 ## Local Development
 
