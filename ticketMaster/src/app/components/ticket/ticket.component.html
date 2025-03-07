@@ -1,0 +1,52 @@
+<div class="container">
+  <h2>Liste des Tickets</h2>
+
+  <button mat-raised-button color="primary" [routerLink]="['/tickets/new']">
+    Nouveau Ticket
+  </button>
+
+  <mat-table [dataSource]="tickets" class="mat-elevation-z8">
+    <!-- ID Column -->
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
+      <mat-cell *matCellDef="let ticket"> {{ ticket.id }} </mat-cell>
+    </ng-container>
+
+    <!-- Title Column -->
+    <ng-container matColumnDef="title">
+      <mat-header-cell *matHeaderCellDef> Titre </mat-header-cell>
+      <mat-cell *matCellDef="let ticket"> {{ ticket.title }} </mat-cell>
+    </ng-container>
+
+    <!-- Description Column -->
+    <ng-container matColumnDef="description">
+      <mat-header-cell *matHeaderCellDef> Description </mat-header-cell>
+      <mat-cell *matCellDef="let ticket"> {{ ticket.description }} </mat-cell>
+    </ng-container>
+
+    <!-- Status Column -->
+    <ng-container matColumnDef="status_id">
+      <mat-header-cell *matHeaderCellDef> Statut </mat-header-cell>
+      <mat-cell *matCellDef="let ticket"> {{ ticket.status_id }} </mat-cell>
+    </ng-container>
+
+    <!-- Actions Column -->
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
+      <mat-cell *matCellDef="let ticket">
+        <button mat-icon-button [routerLink]="['/tickets', ticket.id]">
+          <mat-icon>visibility</mat-icon>
+        </button>
+        <button mat-icon-button [routerLink]="['/tickets', ticket.id, 'edit']">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button (click)="deleteTicket(ticket.id!)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+  </mat-table>
+</div>

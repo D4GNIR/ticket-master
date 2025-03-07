@@ -1,0 +1,36 @@
+<form [formGroup]="ticketForm" (ngSubmit)="onSubmit()" class="ticket-form">
+  <h2>{{ isEditMode ? "Modifier le ticket" : "Créer un ticket" }}</h2>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Titre</mat-label>
+    <input matInput formControlName="title" required />
+    <mat-error *ngIf="ticketForm.get('title')?.hasError('required')">
+      Le titre est requis
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Description</mat-label>
+    <textarea
+      matInput
+      formControlName="description"
+      required
+      rows="4"
+    ></textarea>
+    <mat-error *ngIf="ticketForm.get('description')?.hasError('required')">
+      La description est requise
+    </mat-error>
+  </mat-form-field>
+
+  <div class="form-actions">
+    <button mat-button type="button" routerLink="/tickets">Annuler</button>
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+      [disabled]="!ticketForm.valid"
+    >
+      {{ isEditMode ? "Mettre à jour" : "Créer" }}
+    </button>
+  </div>
+</form>

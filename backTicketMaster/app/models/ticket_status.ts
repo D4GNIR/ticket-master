@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon'
 import { BaseModel, column, hasMany } from '@adonisjs/lucid/orm'
 import type { HasMany } from '@adonisjs/lucid/types/relations'
-import Ticket from './Ticket.js'
+import Ticket from './ticket.js'
 
 export default class TicketStatus extends BaseModel {
   @column({ isPrimary: true })
