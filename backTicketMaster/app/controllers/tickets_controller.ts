@@ -1,5 +1,6 @@
 import { HttpContext } from '@adonisjs/core/http'
 import Ticket from '#models/ticket'
+import db from '@adonisjs/lucid/services/db'
 
 export default class TicketsController {
   // Liste tous les tickets
@@ -22,23 +23,38 @@ export default class TicketsController {
   // Crée un nouveau ticket
   async store({ request, response }: HttpContext) {
     try {
-      console.log('Received request:', request.body()) // Log de la requête reçue
-
       const data = request.only(['title', 'description', 'status_id', 'assigned_to'])
-      console.log('Filtered data:', data) // Log des données filtrées
+
+      // Vérification que status_id existe
+      const statusExists = await db.from('ticket_statuses').where('id', data.status_id).first()
+
+      if (!statusExists) {
+        return response.status(400).json({
+          error: "Le statut spécifié n'existe pas",
+        })
+      }
 
       const ticket = await Ticket.create({
         ...data,
-        createdBy: 1,
+        createdBy: 1, // Idéalement, ceci devrait venir de l'utilisateur authentifié
       })
-
-      console.log('Created ticket:', ticket) // Log du ticket créé
 
       await ticket.refresh()
       return response.status(201).json(ticket)
     } catch (error) {
-      console.error('Error creating ticket:', error)
-      return response.status(500).json({ error: error.message })
+      console.error('Erreur lors de la création du ticket:', error)
+
+      // Gestion plus détaillée des erreurs
+      if (error.code === 'ER_NO_REFERENCED_ROW_2') {
+        return response.status(400).json({
+          error: "Erreur de référence: Vérifiez que le statut et l'assigné existent",
+        })
+      }
+
+      return response.status(500).json({
+        error: 'Une erreur est survenue lors de la création du ticket',
+        details: process.env.NODE_ENV === 'development' ? error.message : undefined,
+      })
     }
   }
 
