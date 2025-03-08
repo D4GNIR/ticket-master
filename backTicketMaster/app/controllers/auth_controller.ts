@@ -44,9 +44,13 @@ export default class AuthController {
     }
   }
 
-  async login({ response, auth }: HttpContext) {
+  async login({ request, response, auth }: HttpContext) {
+    const { email, password } = request.only(['email', 'password'])
+
     try {
-      const user = await auth.use('web').authenticate()
+      await auth.use('web').login(await User.verifyCredentials(email, password))
+
+      const user = auth.use('web').user!
 
       return response.json({
         message: 'Connexion réussie',

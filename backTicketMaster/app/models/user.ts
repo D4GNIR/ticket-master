@@ -1,17 +1,10 @@
 import { DateTime } from 'luxon'
-import { withAuthFinder } from '@adonisjs/auth'
-import hash from '@adonisjs/core/services/hash'
-import { compose } from '@adonisjs/core/helpers'
 import { BaseModel, column, hasMany } from '@adonisjs/lucid/orm'
+import hash from '@adonisjs/core/services/hash'
 import type { HasMany } from '@adonisjs/lucid/types/relations'
 import Ticket from './ticket.js'
 
-const AuthFinder = withAuthFinder(() => hash.use('scrypt'), {
-  uids: ['email'],
-  passwordColumnName: 'password',
-})
-
-export default class User extends compose(BaseModel, AuthFinder) {
+export default class User extends BaseModel {
   @column({ isPrimary: true })
   declare id: number
 
@@ -45,4 +38,10 @@ export default class User extends compose(BaseModel, AuthFinder) {
     foreignKey: 'assignedTo',
   })
   declare assignedTickets: HasMany<typeof Ticket>
+
+  static async verifyCredentials(email: string, password: string) {
+    const user = await this.findByOrFail('email', email)
+    await hash.verify(user.password, password)
+    return user
+  }
 }
