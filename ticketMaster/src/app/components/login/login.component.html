@@ -1,0 +1,51 @@
+<div class="login-container">
+  <form (ngSubmit)="onSubmit()" class="login-form">
+    <h2>Connexion</h2>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Email</mat-label>
+      <input
+        matInput
+        [(ngModel)]="loginData.email"
+        name="email"
+        type="email"
+        required
+      />
+      <mat-error *ngIf="!loginData.email">
+        L'email est requis
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Mot de passe</mat-label>
+      <input
+        matInput
+        [(ngModel)]="loginData.password"
+        name="password"
+        type="password"
+        required
+      />
+      <mat-error *ngIf="!loginData.password">
+        Le mot de passe est requis
+      </mat-error>
+    </mat-form-field>
+
+    <div class="error-message" *ngIf="errorMessage">
+      {{ errorMessage }}
+    </div>
+
+    <div class="form-actions">
+      <button mat-button type="button" routerLink="/register">
+        Créer un compte
+      </button>
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        [disabled]="loading"
+      >
+        {{ loading ? "Connexion..." : "Se connecter" }}
+      </button>
+    </div>
+  </form>
+</div>

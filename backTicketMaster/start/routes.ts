@@ -22,5 +22,7 @@ router
     router.get('/tickets/:id', '#controllers/tickets_controller.show')
     router.put('/tickets/:id', '#controllers/tickets_controller.update')
     router.delete('/tickets/:id', '#controllers/tickets_controller.destroy')
+    router.post('/register', '#controllers/auth_controller.register')
+    router.post('/login', '#controllers/auth_controller.login')
   })
   .prefix('/api')

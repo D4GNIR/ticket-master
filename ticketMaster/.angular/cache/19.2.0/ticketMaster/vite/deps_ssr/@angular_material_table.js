@@ -1,11 +1,11 @@
 import { createRequire } from 'module';const require = createRequire(import.meta.url);
 import {
   MatCommonModule
-} from "./chunk-AOK7EBQL.js";
+} from "./chunk-QN32YQUT.js";
 import {
   BidiModule,
   Directionality
-} from "./chunk-5JQWLTPY.js";
+} from "./chunk-TBXJFJNW.js";
 import {
   Platform,
   RtlScrollAxisType,
@@ -14,10 +14,10 @@ import {
   coerceNumberProperty,
   getRtlScrollAxisType,
   supportsScrollBehavior
-} from "./chunk-FPQSXTKJ.js";
+} from "./chunk-OM2EZPE6.js";
 import {
   DOCUMENT
-} from "./chunk-LWORY74U.js";
+} from "./chunk-SSNMLJY4.js";
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -48,7 +48,6 @@ import {
   booleanAttribute,
   forwardRef,
   inject,
-  require_operators,
   setClassMetadata,
   ɵɵInheritDefinitionFeature,
   ɵɵNgOnChangesFeature,
@@ -79,10 +78,14 @@ import {
   ɵɵtext,
   ɵɵtextInterpolate1,
   ɵɵviewQuery
-} from "./chunk-GAKRZWTD.js";
+} from "./chunk-T2KLVP2Y.js";
 import {
   require_cjs
-} from "./chunk-AQYIT73X.js";
+} from "./chunk-NEB74DX2.js";
+import {
+  require_operators
+} from "./chunk-4HVWSRNV.js";
+import "./chunk-QHIWDXK3.js";
 import {
   __toESM
 } from "./chunk-YHCV7DAQ.js";
